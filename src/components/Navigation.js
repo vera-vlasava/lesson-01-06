@@ -12,7 +12,7 @@ const Navigation = () => {
 
     return (
 
-        <nav className="navbar navbar-expand-lg navbar-dark bg-primary mb-3">
+        <nav className="navbar navbar-expand navbar-dark bg-primary mb-3">
             <div className="container">
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                     <li className="nav-item">
@@ -23,6 +23,9 @@ const Navigation = () => {
                     </li>
                     <li className="nav-item">
                         <NavLink to="/persons/add">Add Person</NavLink>
+                    </li>
+                    <li className="nav-item">
+                        <NavLink to="/albums">Albums</NavLink>
                     </li>
 
                 </ul>

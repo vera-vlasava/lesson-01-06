@@ -24,3 +24,7 @@ code {
 .nav-item a:hover, .nav-item a.active {
   color: #fff;
 }
+
+.cur-pointer {
+  cursor: pointer;
+}
