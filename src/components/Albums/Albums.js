@@ -16,7 +16,7 @@ const Albums = () => {
                 {albums.map((album) => {
                     const albumPhotos = photos.filter(p=>p.albumId === album.id)
                     if ( albumPhotos.length === 0 ) return null
-                    return (<AlbumCard album={album} photo={albumPhotos[0]}/>)
+                    return (<AlbumCard key={album.id} album={album} photo={albumPhotos[0]}/>)
                 })}
             </div>
         )

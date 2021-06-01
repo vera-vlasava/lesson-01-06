@@ -52,6 +52,14 @@ const App = () => {
 
     }
 
+    const getAlbumById = id => {
+        const idx = albums.findIndex(album => album.id === id)
+        if ( idx === -1 ) {
+            return null
+        }
+        return albums[idx]
+    }
+
     const [photos, setPhotos] = useState(photosInitial)
 
     const addNewPhoto = formData => {
@@ -71,6 +79,7 @@ const App = () => {
             editPerson,
             albums,
             addNewAlbum,
+            getAlbumById,
             photos,
             addNewPhoto
         }}>
