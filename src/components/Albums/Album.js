@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from "react"
 import {GlobalContext} from "../App"
 
 import {useParams} from 'react-router-dom'
-import PhotoCard from "../photos/PhotoCard";
+import PhotoCard from "../Photos/PhotoCard";
 
 const Album = () => {
     const {photos, getPersonById, getAlbumById} = useContext(GlobalContext)

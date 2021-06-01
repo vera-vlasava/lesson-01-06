@@ -79,8 +79,22 @@ const App = () => {
       ...posts,
       { ...formData, id: Date.now(), datetime: Date.now() },
     ];
-    setPosts(newPosts)
-    setPostsToStorage(newPosts)
+    setPosts(newPosts);
+    setPostsToStorage(newPosts);
+  };
+
+  const addPhotoReaction = (id, vote) => {
+    const newPhotos = [...photos];
+    const idx = newPhotos.findIndex((p) => p.id === id);
+    if (idx === -1) return false;
+    if (vote === 1) {
+      newPhotos[idx].like++;
+    } else {
+      newPhotos[idx].dislike++;
+    }
+
+    setPhotos(newPhotos);
+    setPhotosToStorage(newPhotos);
   };
 
   return (
@@ -97,8 +111,9 @@ const App = () => {
         getAlbumById,
         photos,
         addNewPhoto,
-        posts, 
-        addNewPost
+        posts,
+        addNewPost,
+        addPhotoReaction,
       }}
     >
       <Navigation />

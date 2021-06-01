@@ -1,7 +1,7 @@
 import React, {useContext} from "react"
 import {GlobalContext} from "../App"
-import PhotoCard from "../photos/PhotoCard";
-import AddPhoto from "../photos/AddPhoto";
+import PhotoCard from "../Photos/PhotoCard";
+import AddPhoto from "../Photos/AddPhoto";
 
 
 const PersonalAlbums = ({personId}) => {
