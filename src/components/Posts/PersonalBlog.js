@@ -8,7 +8,7 @@ const PersonalBlog = ({ personId }) => {
     if (!personalPosts.length) {
       return <h3>Ooops...</h3>;
     }
-    return posts.map((post) => (
+    return personalPosts.map((post) => (
       <div key={post.id} className="card">
         <div className="card-body">
           <h3 className="card-title">{post.title}</h3>

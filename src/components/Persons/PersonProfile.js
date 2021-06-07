@@ -6,10 +6,13 @@ import PersonalAlbums from "../Albums/PersonalAlbums";
 import AddPost from "../Posts/AddPost";
 import PersonalBlog from "../Posts/PersonalBlog";
 
-const PersonProfile = () => {
+import { connect } from "react-redux";
+
+import {editThisPerson, getPersonById} from "../../store/actions/act_persons"
+
+const PersonProfile = ({ activePerson, persons, editPerson }) => {
   const { id } = useParams();
-  const { getPersonById, activePerson, editPerson, addNewAlbum, addNewPost } =
-    useContext(GlobalContext);
+  const { addNewAlbum, addNewPost } = useContext(GlobalContext);
   const [person, setPerson] = useState(null);
   const [editMode, setEditMode] = useState(false);
   const [addAlbum, setAddAlbum] = useState(false);
@@ -18,6 +21,16 @@ const PersonProfile = () => {
   useEffect(() => {
     setPerson(getPersonById(id));
   }, []);
+
+  const getPersonById = (id) => {
+    const idx = persons.findIndex((person) => person.id === +id);
+    if (idx === -1) {
+      return null;
+    }
+    return persons[idx];
+  };
+
+  
 
   const renderProfile = () => {
     if (!person) return false;
@@ -177,7 +190,6 @@ const PersonProfile = () => {
 
   const addNewPostHandle = (formData) => {
     addNewPost(formData);
-    console.log(formData);
     setAddPost(false);
   };
 
@@ -208,4 +220,18 @@ const PersonProfile = () => {
   );
 };
 
-export default PersonProfile;
+const mapStateToProps = (state) => {
+  return {
+    activePerson: state.persons.activePerson,
+    persons: state.persons.list,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    // getPerson: (id) => dispatch(getPersonById(id)),
+    editPerson: (person) => dispatch(editThisPerson(person))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PersonProfile);
