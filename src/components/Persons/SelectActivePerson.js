@@ -17,8 +17,8 @@ const SelectActivePerson = ({
   };
 
   return (
-    <select onChange={changeSelectValue} defaultValue={activePerson}>
-      <option value={null}>Choose User</option>
+    <select onChange={changeSelectValue} defaultValue={activePerson || null}>
+      <option value="-1">Choose User</option>
       {persons.map((p) => (
         <option key={p.id} value={p.id}>
           {p.fName} {p.lName}
