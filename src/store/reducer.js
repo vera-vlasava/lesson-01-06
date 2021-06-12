@@ -11,6 +11,7 @@ const initState = {
     list: [],
     activePerson: null,
     editMode: null,
+    personById: null
   },
 };
 

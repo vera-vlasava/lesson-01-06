@@ -59,7 +59,7 @@ export const editThisPerson = (person) => {
   return async (dispatch) => {
     try {
       await editPersonOnServer(person);
-      dispatch(editPersonInState(person));
+      await dispatch(editPersonInState(person));
     } catch (err) {
       console.log(err.message);
     }
@@ -67,14 +67,16 @@ export const editThisPerson = (person) => {
 };
 
 
-export const getPersonById = (id) => {
-    const persons = [...personsInitial]
-    const idx = persons.findIndex((person) => person.id === +id);
-    if (idx === -1) {
-      return null;
-    }
-    return persons[idx];
-  };
+// export const getPersonById = (id) => {
+//     const persons = [...personsInitial]
+//     const idx = persons.findIndex((person) => person.id === +id);
+//     if (idx === -1) {
+//       return null;
+//     }
+//     return persons[idx];
+//   };
+
+const 
 
 
 const editPersonInState = (person) => {
