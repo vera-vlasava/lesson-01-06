@@ -1,8 +1,7 @@
-import React, { useContext } from "react";
-import { GlobalContext } from "../App";
+import {connect} from "react-redux"
 
-const PersonalBlog = ({ personId }) => {
-  const { posts } = useContext(GlobalContext);
+const PersonalBlog = ({ posts, personId }) => {
+
   const personalPosts = posts.filter((p) => p.personId === personId);
   const renderBlog = () => {
     if (!personalPosts.length) {
@@ -20,4 +19,10 @@ const PersonalBlog = ({ personId }) => {
   return <div className="container">{renderBlog()}</div>;
 };
 
-export default PersonalBlog
+const mapStateToProps = state => {
+  return {
+    posts: state.posts.list
+  }
+}
+
+export default connect(mapStateToProps, null)(PersonalBlog)

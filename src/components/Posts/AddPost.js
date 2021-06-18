@@ -1,7 +1,11 @@
 import React, { useState, useContext } from "react";
 import { connect } from "react-redux";
 
-const AddPost = ({ onFinish, activePerson }) => {
+import { CHANGE_ADD_POST } from "../../store/typesList";
+
+import { addPost } from "../../store/actions/act_posts";
+
+const AddPost = ({ activePerson, addLocalPost, setAddPostMode }) => {
   const [formData, setFormData] = useState({
     personId: activePerson,
     title: "",
@@ -19,7 +23,8 @@ const AddPost = ({ onFinish, activePerson }) => {
   return (
     <form
       onSubmit={() => {
-        onFinish(formData);
+        addLocalPost(formData);
+        setAddPostMode();
       }}
     >
       <div className="form-group">
@@ -58,4 +63,11 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, null)(AddPost);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setAddPostMode: () => dispatch({ type: CHANGE_ADD_POST }),
+    addLocalPost: (post) => dispatch(addPost(post)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddPost);

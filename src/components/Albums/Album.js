@@ -1,38 +1,47 @@
-import React, {useContext, useEffect, useState} from "react"
-import {GlobalContext} from "../App"
-
-import {useParams} from 'react-router-dom'
+import React from "react";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import PhotoCard from "../Photos/PhotoCard";
 
 const Album = () => {
-    const {photos, getPersonById, getAlbumById} = useContext(GlobalContext)
-    const {id} = useParams()
-    const [album, setAlbum] = useState(getAlbumById(+id))
-    const [person, setPerson] = useState(null)
-    const [albumPhotos, setAlbumPhotos] = useState(photos.filter(p => p.albumId === +id))
+  const { id } = useParams();
 
-    useEffect(() => {
-        if (album.id) {
-            setPerson(getPersonById(album.personId))
-        }
-    }, [])
+  const data = useSelector((state) => {
+    let idx = state.albums.list.findIndex((a) => a.id === +id);
+    if (idx === -1) return { album: null, person: null, albumPhotos: null };
 
-    const renderAlbum = () => {
-        if (!album || !person) {
-            return (<div>Loading ...</div>)
-        }
-        return (
-            <div className="container">
-                <h1>{album.title}</h1>
-                <h2>by {person.lName} {person.fName}</h2>
-                <div className="row">
-                    {albumPhotos.map(photo => <PhotoCard key={photo.id} photo={photo}/>)}
-                </div>
-            </div>
-        )
+    const album = state.albums.list[idx];
+
+    idx = state.persons.list.findIndex((p) => p.id === album.personId);
+    if (idx === -1) return { album: null, person: null, albumPhotos: null };
+
+    const person = state.persons.list[idx];
+
+    const albumPhotos = state.photos.list.filter((p) => p.albumId === +id);
+
+    return { album, person, albumPhotos };
+  });
+
+  const renderAlbum = () => {
+    if (!data.album || !data.person) {
+      return <div>Loading ...</div>;
     }
-    
-    return renderAlbum()
-}
+    return (
+      <div className="container">
+        <h1>{data.album.title}</h1>
+        <h2>
+          by {data.person.lName} {data.person.fName}
+        </h2>
+        <div className="row">
+          {data.albumPhotos.map((photo) => (
+            <PhotoCard key={photo.id} photo={photo} />
+          ))}
+        </div>
+      </div>
+    );
+  };
 
-export default Album
+  return renderAlbum();
+};
+
+export default Album;

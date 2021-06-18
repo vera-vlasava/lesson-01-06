@@ -1,11 +1,9 @@
-import React, { useContext } from "react";
-import { GlobalContext } from "../App";
+import React from "react";
 import PhotoCard from "../Photos/PhotoCard";
 import AddPhoto from "../Photos/AddPhoto";
 import { connect } from "react-redux";
 
-const PersonalAlbums = ({ personId, activePerson }) => {
-  const { albums, photos, addNewPhoto } = useContext(GlobalContext);
+const PersonalAlbums = ({ personId, activePerson, albums, photos }) => {
   const renderAlbum = () => {
     const personalList = albums.filter((a) => a.personId === personId);
     return personalList.map((a) => (
@@ -14,7 +12,7 @@ const PersonalAlbums = ({ personId, activePerson }) => {
         <div className="row">{renderPhotosByAlbum(a.id)}</div>
         <div>
           {activePerson === personId ? (
-            <AddPhoto albumId={a.id} addNewPhoto={addNewPhoto} />
+            <AddPhoto albumId={a.id} />
           ) : null}
         </div>
       </div>
@@ -34,6 +32,8 @@ const PersonalAlbums = ({ personId, activePerson }) => {
 const mapStateToProps = (state) => {
   return {
     activePerson: state.persons.activePerson,
+    albums: state.albums.list,
+    photos: state.photos.list,
   };
 };
 

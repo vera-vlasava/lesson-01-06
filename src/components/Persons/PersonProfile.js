@@ -1,6 +1,6 @@
-import React, { Fragment, useContext, useEffect, useState } from "react";
+import React, { Fragment, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { GlobalContext } from "../App";
+
 import AddAlbum from "../Albums/AddAlbum";
 import PersonalAlbums from "../Albums/PersonalAlbums";
 import AddPost from "../Posts/AddPost";
@@ -8,29 +8,34 @@ import PersonalBlog from "../Posts/PersonalBlog";
 
 import { connect } from "react-redux";
 
-import {editThisPerson, getPersonById} from "../../store/actions/act_persons"
+import { setPersonById } from "../../store/actions/act_persons";
+import EditPersonForm from "./EditPersonForm";
+import {
+  CHANGE_EDIT_MODE,
+  CHANGE_ADD_POST,
+  CHANGE_ADD_ALBUM,
+} from "../../store/typesList";
 
-const PersonProfile = ({ activePerson, persons, editPerson }) => {
+const PersonProfile = ({
+  activePerson,
+  setLocalPerson,
+  setEditMode,
+  editMode,
+  person,
+  setAddPostMode,
+  addPostMode,
+  setAddAlbumMode, 
+  addAlbumMode
+}) => {
   const { id } = useParams();
-  const { addNewAlbum, addNewPost } = useContext(GlobalContext);
-  const [person, setPerson] = useState(null);
-  const [editMode, setEditMode] = useState(false);
-  const [addAlbum, setAddAlbum] = useState(false);
-  const [addPost, setAddPost] = useState(false);
 
   useEffect(() => {
-    setPerson(getPersonById(id));
+    setLocalPerson(+id);
   }, []);
 
-  const getPersonById = (id) => {
-    const idx = persons.findIndex((person) => person.id === +id);
-    if (idx === -1) {
-      return null;
-    }
-    return persons[idx];
-  };
-
-  
+  useEffect(() => {
+    setLocalPerson(+id);
+  }, [editMode]);
 
   const renderProfile = () => {
     if (!person) return false;
@@ -44,76 +49,8 @@ const PersonProfile = ({ activePerson, persons, editPerson }) => {
     );
   };
 
-  const changeFieldHandle = (event) => {
-    setPerson({ ...person, [event.target.name]: event.target.value });
-  };
-
   const renderForm = () => {
-    return (
-      <form onSubmit={submitFormHandle}>
-        <div className="form-group">
-          <label>First Name</label>
-          <input
-            type="text"
-            className="form-control"
-            value={person.fName}
-            name="fName"
-            onChange={changeFieldHandle}
-          />
-        </div>
-        <div className="form-group">
-          <label>Last Name</label>
-          <input
-            type="text"
-            className="form-control"
-            value={person.lName}
-            name="lName"
-            onChange={changeFieldHandle}
-          />
-        </div>
-        <div className="form-group">
-          <label>Age</label>
-          <input
-            type="text"
-            className="form-control"
-            value={person.age}
-            name="age"
-            onChange={changeFieldHandle}
-          />
-        </div>
-        <div className="form-group">
-          <label>Email</label>
-          <input
-            type="text"
-            className="form-control"
-            value={person.email}
-            name="email"
-            onChange={changeFieldHandle}
-          />
-        </div>
-        <div className="form-group">
-          <label>Phone</label>
-          <input
-            type="text"
-            className="form-control"
-            value={person.phone}
-            name="phone"
-            onChange={changeFieldHandle}
-          />
-        </div>
-        <div className="form-group mb-2">
-          <label>Avatar</label>
-          <input
-            type="text"
-            className="form-control"
-            value={person.avatar}
-            name="avatar"
-            onChange={changeFieldHandle}
-          />
-        </div>
-        <button type="submit">Save Change</button>
-      </form>
-    );
+    return <EditPersonForm person={person} />;
   };
 
   const renderInfo = () => {
@@ -138,14 +75,8 @@ const PersonProfile = ({ activePerson, persons, editPerson }) => {
     );
   };
 
-  const submitFormHandle = (event) => {
-    event.preventDefault();
-    editPerson(person);
-    setEditMode(false);
-  };
-
   const renderEditButton = () => {
-    if (activePerson !== person.id || editMode || addAlbum || addPost)
+    if (activePerson !== person.id || editMode || addAlbumMode || addPostMode)
       return null;
     return (
       <div className="w-100">
@@ -170,36 +101,27 @@ const PersonProfile = ({ activePerson, persons, editPerson }) => {
 
   const editButtonHandle = (event) => {
     event.preventDefault();
-    setEditMode(true);
+    setEditMode();
   };
 
   const addAlbumButtonHandle = (event) => {
     event.preventDefault();
-    setAddAlbum(true);
+    setAddAlbumMode();
   };
 
-  const addNewAlbumHandle = (formData) => {
-    addNewAlbum(formData);
-    setAddAlbum(false);
-  };
 
   const addBlogButtonHandle = (event) => {
     event.preventDefault();
-    setAddPost(true);
-  };
-
-  const addNewPostHandle = (formData) => {
-    addNewPost(formData);
-    setAddPost(false);
+    setAddPostMode();
   };
 
   const renderPersonInfo = () => {
-    if (addAlbum) {
-      return <AddAlbum onFinish={addNewAlbumHandle} />;
+    if (addAlbumMode) {
+      return <AddAlbum />;
     }
 
-    if (addPost) {
-      return <AddPost onFinish={addNewPostHandle} />;
+    if (addPostMode) {
+      return <AddPost />;
     }
 
     return (
@@ -223,14 +145,19 @@ const PersonProfile = ({ activePerson, persons, editPerson }) => {
 const mapStateToProps = (state) => {
   return {
     activePerson: state.persons.activePerson,
-    persons: state.persons.list,
+    editMode: state.persons.editMode,
+    person: state.persons.personById,
+    addPostMode: state.posts.addPostMode,
+    addAlbumMode: state.albums.addAlbumMode,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    // getPerson: (id) => dispatch(getPersonById(id)),
-    editPerson: (person) => dispatch(editThisPerson(person))
+    setLocalPerson: (id) => dispatch(setPersonById(id)),
+    setEditMode: () => dispatch({ type: CHANGE_EDIT_MODE }),
+    setAddPostMode: () => dispatch({ type: CHANGE_ADD_POST }),
+    setAddAlbumMode: () => dispatch({ type: CHANGE_ADD_ALBUM }),
   };
 };
 

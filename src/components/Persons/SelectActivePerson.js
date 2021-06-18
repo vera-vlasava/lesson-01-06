@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { changeActivePersonId, getPersons } from "../../store/actions/act_persons";
+import {
+  changeActivePersonId,
+  getPersons,
+} from "../../store/actions/act_persons";
 
 const SelectActivePerson = ({
   persons,
@@ -8,6 +11,8 @@ const SelectActivePerson = ({
   getPersonsObject,
   changeActivePerson,
 }) => {
+  
+  
   useEffect(() => {
     getPersonsObject();
   }, []);
@@ -16,16 +21,16 @@ const SelectActivePerson = ({
     changeActivePerson(+event.target.value);
   };
 
-  return (
-    <select onChange={changeSelectValue} defaultValue={activePerson}>
-      <option value={null}>Choose User</option>
+  return persons.length ? (
+    <select onChange={changeSelectValue} defaultValue={activePerson || null}>
+      <option value="-1">Choose User</option>
       {persons.map((p) => (
         <option key={p.id} value={p.id}>
           {p.fName} {p.lName}
         </option>
       ))}
     </select>
-  );
+  ) : null;
 };
 
 const mapStateToProps = (state) => {

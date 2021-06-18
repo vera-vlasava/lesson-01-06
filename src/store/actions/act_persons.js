@@ -9,6 +9,7 @@ import {
   FETCH_PERSONS,
   DELETE_PERSON,
   EDIT_PERSON,
+  SET_PERSON_BY_ID,
 } from "../typesList";
 
 export const changeActivePersonId = (personId) => {
@@ -55,7 +56,7 @@ export const deletePerson = (personId) => {
   };
 };
 
-export const editThisPerson = (person) => {
+export const editPerson = (person) => {
   return async (dispatch) => {
     try {
       await editPersonOnServer(person);
@@ -66,16 +67,22 @@ export const editThisPerson = (person) => {
   };
 };
 
-
-export const getPersonById = (id) => {
-    const persons = [...personsInitial]
-    const idx = persons.findIndex((person) => person.id === +id);
-    if (idx === -1) {
-      return null;
+export const setPersonById = (personId) => {
+  return (dispatch) => {
+    try {
+      dispatch(setPersonByIdInState(personId));
+    } catch (err) {
+      console.log(err.message);
     }
-    return persons[idx];
   };
+};
 
+const setPersonByIdInState = (personId) => {
+  return {
+    type: SET_PERSON_BY_ID,
+    payload: personId,
+  };
+};
 
 const editPersonInState = (person) => {
   return {
@@ -85,13 +92,11 @@ const editPersonInState = (person) => {
 };
 
 const editPersonOnServer = (person) => {
-    const idx = personsInitial.findIndex((p) => p.id === person.id);
-    if (idx === -1) return null;
-    personsInitial.splice(idx, 1, person);
-    setPersonsToStorage(personsInitial);
-}
-
-
+  const idx = personsInitial.findIndex((p) => p.id === person.id);
+  if (idx === -1) return null;
+  personsInitial.splice(idx, 1, person);
+  setPersonsToStorage(personsInitial);
+};
 
 const getObject = () => {
   return {

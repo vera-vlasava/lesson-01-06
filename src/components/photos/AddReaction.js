@@ -1,23 +1,39 @@
-import React, { useContext } from "react";
-import { GlobalContext } from "../App";
+import React, { useEffect } from "react";
 
-const AddReaction = ({photo}) => {
-  const { addPhotoReaction } = useContext(GlobalContext);
+import { ADD_LIKE_TO_PHOTO, ADD_DISLIKE_TO_PHOTO } from "../../store/typesList";
+import { connect } from "react-redux";
+import { editPhoto } from "../../store/actions/act_photos";
 
-  const addLike = (event) => {
-    addPhotoReaction(photo.id, 1);
+const AddReaction = ({ photo, addLike, addDislike, setEditedPhoto }) => {
+  useEffect(() => {
+    console.log(photo);
+  }, [photo]);
+  const addNewLike = (event) => {
+    event.preventDefault();
+    addLike(photo.id);
+    setEditedPhoto(photo);
   };
 
-  const addDislike = (event) => {
-    addPhotoReaction(photo.id, -1);
+  const addNewDislike = (event) => {
+    event.preventDefault();
+    addDislike(photo.id);
+    setEditedPhoto(photo);
   };
 
   return (
     <div>
-      <button onClick={addLike}>Like({photo.like})</button>
-      <button onClick={addDislike}>DisLike({photo.dislike})</button>
+      <button value={photo.like} onClick={addNewLike}>Like({photo.like})</button>
+      <button onClick={addNewDislike}>DisLike({photo.dislike})</button>
     </div>
   );
 };
 
-export default AddReaction;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addLike: (id) => dispatch({ type: ADD_LIKE_TO_PHOTO, payload: id }),
+    addDislike: (id) => dispatch({ type: ADD_DISLIKE_TO_PHOTO, payload: id }),
+    setEditedPhoto: (photo) => dispatch(editPhoto(photo)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(AddReaction);

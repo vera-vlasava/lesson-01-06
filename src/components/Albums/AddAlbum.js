@@ -1,7 +1,10 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
+import { CHANGE_ADD_ALBUM } from "../../store/typesList";
 
-const AddAlbum = ({ onFinish, activePerson }) => {
+import { addAlbum } from "../../store/actions/act_albums";
+
+const AddAlbum = ({ addLocalAlbum, activePerson, setAddAlbumMode }) => {
   const [formData, setFormData] = useState({
     personId: activePerson,
     title: "",
@@ -13,7 +16,8 @@ const AddAlbum = ({ onFinish, activePerson }) => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    onFinish(formData);
+    addLocalAlbum(formData);
+    setAddAlbumMode();
   };
 
   return (
@@ -42,4 +46,11 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, null)(AddAlbum);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setAddAlbumMode: () => dispatch({ type: CHANGE_ADD_ALBUM }),
+    addLocalAlbum: (album) => dispatch(addAlbum(album)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddAlbum);
