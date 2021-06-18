@@ -60,7 +60,7 @@ export const editPerson = (person) => {
   return async (dispatch) => {
     try {
       await editPersonOnServer(person);
-      dispatch(editPersonInState(person));
+      await dispatch(editPersonInState(person));
     } catch (err) {
       console.log(err.message);
     }
