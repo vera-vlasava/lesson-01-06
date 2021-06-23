@@ -23,22 +23,14 @@ export const addPhoto = (photo) => {
   };
 };
 
-export const editPhoto = (photo) => {
-  return async (dispatch) => {
+export const editPhoto = (id) => {
+  return (dispatch, getState) => {
     try {
-      await editPhotoOnServer(photo);
-      dispatch(editPhotoInState(photo));
+      const photo = getState().photos.list.find((photo) => photo.id === id);
+      editPhotoOnServer(photo);
     } catch (err) {
       console.log(err.message);
     }
-  };
-};
-
-
-const editPhotoInState = (photo) => {
-  return {
-    type: EDIT_PHOTO,
-    payload: photo,
   };
 };
 

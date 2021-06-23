@@ -11,18 +11,20 @@ const AddReaction = ({ photo, addLike, addDislike, setEditedPhoto }) => {
   const addNewLike = (event) => {
     event.preventDefault();
     addLike(photo.id);
-    setEditedPhoto(photo);
+    setEditedPhoto(photo.id);
   };
 
   const addNewDislike = (event) => {
     event.preventDefault();
     addDislike(photo.id);
-    setEditedPhoto(photo);
+    setEditedPhoto(photo.id);
   };
 
   return (
     <div>
-      <button value={photo.like} onClick={addNewLike}>Like({photo.like})</button>
+      <button value={photo.like} onClick={addNewLike}>
+        Like({photo.like})
+      </button>
       <button onClick={addNewDislike}>DisLike({photo.dislike})</button>
     </div>
   );
@@ -32,7 +34,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     addLike: (id) => dispatch({ type: ADD_LIKE_TO_PHOTO, payload: id }),
     addDislike: (id) => dispatch({ type: ADD_DISLIKE_TO_PHOTO, payload: id }),
-    setEditedPhoto: (photo) => dispatch(editPhoto(photo)),
+    setEditedPhoto: (id) => dispatch(editPhoto(id)),
   };
 };
 

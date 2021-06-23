@@ -31,7 +31,7 @@ export const PhotosReducer = (state = {}, action) => {
       _arr = [...state.list];
       idx = _arr.findIndex((p) => p.id === action.payload);
       if (idx === -1) return state;
-      _arr[idx].like++;
+      _arr[idx] = { ..._arr[idx], like: _arr[idx].like + 1 };
 
       return {
         ...state,
@@ -42,7 +42,7 @@ export const PhotosReducer = (state = {}, action) => {
       _arr = [...state.list];
       idx = _arr.findIndex((p) => p.id === action.payload);
       if (idx === -1) return state;
-      _arr[idx].dislike++;
+      _arr[idx] = { ..._arr[idx], dislike: _arr[idx].dislike + 1 };
 
       return {
         ...state,

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
 import photosInitial, { setPhotosToStorage } from "../data/photos";
@@ -10,9 +10,6 @@ import { getPhotos } from "../store/actions/act_photos";
 import Navigation from "./Navigation";
 import Pages from "../layouts/Pages";
 
-
-export const GlobalContext = React.createContext(null);
-
 const App = ({ initPosts, initAlbums, initPhotos }) => {
   useEffect(() => {
     initPosts();
@@ -20,32 +17,12 @@ const App = ({ initPosts, initAlbums, initPhotos }) => {
     initPhotos();
   }, []);
 
-  const [photos, setPhotos] = useState(photosInitial);
-
-  // const addPhotoReaction = (id, vote) => {
-  //   const newPhotos = [...photos];
-  //   const idx = newPhotos.findIndex((p) => p.id === id);
-  //   if (idx === -1) return false;
-  //   if (vote === 1) {
-  //     newPhotos[idx].like++;
-  //   } else {
-  //     newPhotos[idx].dislike++;
-  //   }
-
-  //   setPhotos(newPhotos);
-  //   setPhotosToStorage(newPhotos);
-  // };
 
   return (
-    <GlobalContext.Provider
-      value={{
-        photos,
-        // addPhotoReaction,
-      }}
-    >
+    <div>
       <Navigation />
       <Pages />
-    </GlobalContext.Provider>
+    </div>
   );
 };
 

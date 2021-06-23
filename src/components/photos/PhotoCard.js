@@ -12,7 +12,6 @@ const PhotoCard = ({ photo }) => {
         <div className="card-body">
           <p className="card-title">{photo.title}</p>
           <div className="card-text">
-            Like{photo.like} <br />
             <AddReaction photo={photo} />
           </div>
         </div>
