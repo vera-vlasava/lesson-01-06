@@ -1,6 +1,2 @@
-Added new files
-Added new files
-Added new files
-Added new files
-Added conflict files
-
+Personal Profile Project 
+React, Redux
