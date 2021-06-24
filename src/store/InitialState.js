@@ -1,6 +1,7 @@
 const InitialState = {
   persons: {
     list: [],
+    isAuth: false,
     activePerson: null,
     editMode: false,
     personById: {},

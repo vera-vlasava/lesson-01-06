@@ -11,7 +11,7 @@ const AddNewPerson = ({ addPerson }) => {
 
   const submitHandle = (values) => {
     addPerson(values);
-    history.push("/persons");
+    history.push("/signin");
   };
 
   const { form, use } = useForm({
@@ -20,6 +20,7 @@ const AddNewPerson = ({ addPerson }) => {
       l_name: "",
       age: "",
       email: "",
+      password: "",
       phone: "",
       avatar: "",
     },
@@ -64,6 +65,14 @@ const AddNewPerson = ({ addPerson }) => {
             label="Email"
             required
             error={errors.email}
+          />
+          <InputField
+              type="password"
+              name="password"
+              id="password"
+              label="Password"
+              required
+              error={errors.password}
           />
           <InputField
             type="text"

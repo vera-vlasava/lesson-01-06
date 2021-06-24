@@ -11,6 +11,7 @@ import Navigation from "./Navigation";
 import Pages from "../layouts/Pages";
 
 const App = ({ initPosts, initAlbums, initPhotos }) => {
+
   useEffect(() => {
     initPosts();
     initAlbums();

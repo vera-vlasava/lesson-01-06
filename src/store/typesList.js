@@ -5,6 +5,7 @@ export const DELETE_PERSON = "DELETE_PERSON"
 export const EDIT_PERSON = "EDIT_PERSON"
 export const SET_PERSON_BY_ID = "SET_PERSON_BY_ID"
 export const CHANGE_EDIT_MODE = "CHANGE_EDIT_MODE"
+export const CHANGE_AUTH = "CHANGE_AUTH"
 
 export const FETCH_ALBUMS = "FETCH_ALBUMS"
 export const ADD_ALBUM = "ADD_ALBUM"

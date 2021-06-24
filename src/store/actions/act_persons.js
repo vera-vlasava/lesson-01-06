@@ -10,7 +10,9 @@ import {
   DELETE_PERSON,
   EDIT_PERSON,
   SET_PERSON_BY_ID,
+  CHANGE_AUTH,
 } from "../typesList";
+import {URL} from "../utilites";
 
 export const changeActivePersonId = (personId) => {
   return (dispatch) => {
@@ -24,21 +26,71 @@ export const changeActivePersonId = (personId) => {
 };
 
 export const getPersons = () => {
-  return (dispatch) => {
+  return async (dispatch) => {
     try {
-      const obj = getObject();
-      dispatch(fetchPersons(obj));
+      // const obj = getObject();
+      const response = await fetch(`${URL}/users`, {
+        method: "GET",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+      const json = await response.json();
+      dispatch(fetchPersons({list: json, activePerson: null}));
     } catch (err) {
       console.log(err.message);
     }
   };
 };
 
+export const doSignIn = (person) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(`${URL}/auth/signin`, {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(person)
+      });
+      const json = await response.json();
+      await localStorage.setItem('token', json.accessToken)
+      await localStorage.setItem('userId', json.id)
+      await changeAuth(true)
+    } catch (err) {
+      console.log(err.message);
+    }
+  }
+}
+
+export const doSignOut = () => {
+  return () => {
+    try {
+      localStorage.removeItem("token")
+      localStorage.removeItem("userId")
+      changeAuth(false)
+    } catch (err) {
+      console.log(err.message);
+    }
+  }
+}
+
 export const addNewPerson = (data) => {
   return async (dispatch) => {
     try {
-      const person = createPerson(data);
-      await dispatch(addPerson(person));
+      // const person = createPerson(data);
+      const response = await fetch(`${URL}/auth/signup`, {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      });
+      const json = await response.json();
+      await dispatch(addPerson(json));
     } catch (err) {
       console.log(err.message);
     }
@@ -97,6 +149,13 @@ const editPersonOnServer = (person) => {
   personsInitial.splice(idx, 1, person);
   setPersonsToStorage(personsInitial);
 };
+
+const changeAuth = (authMode) => {
+  return {
+    type: CHANGE_AUTH,
+    payload: authMode,
+  }
+}
 
 const getObject = () => {
   return {

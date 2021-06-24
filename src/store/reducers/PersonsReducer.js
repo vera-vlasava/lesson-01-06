@@ -5,7 +5,7 @@ import {
   DELETE_PERSON,
   EDIT_PERSON,
   SET_PERSON_BY_ID,
-  CHANGE_EDIT_MODE,
+  CHANGE_EDIT_MODE, CHANGE_AUTH,
 } from "../typesList";
 
 let idx, _arr;
@@ -25,6 +25,12 @@ export const PersonsReducer = (state = {}, action) => {
       return {
         ...state,
         activePerson: action.payload,
+      };
+
+    case CHANGE_AUTH:
+      return {
+        ...state,
+        isAuth: action.payload,
       };
 
     case EDIT_PERSON:
