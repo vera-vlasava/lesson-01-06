@@ -7,8 +7,8 @@ const AlbumCard = ({ album, photo }) => {
     const idx = state.persons.list.findIndex((p) => p.id === album.personId);
     if (idx === -1) {
       return {
-        fName: "No",
-        lName: "Name",
+        f_name: "No",
+        l_name: "Name",
       };
     }
     return state.persons.list[idx];
@@ -28,7 +28,7 @@ const AlbumCard = ({ album, photo }) => {
         <div className="card-body">
           <h3 className="card-title">{album.title}</h3>
           <p className="card-text">
-            {person.lName} {person.fName[0].toUpperCase()}.
+            {person.l_name} {person.f_name[0].toUpperCase()}.
           </p>
         </div>
       </div>

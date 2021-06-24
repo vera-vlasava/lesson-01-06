@@ -16,8 +16,8 @@ const AddNewPerson = ({ addPerson }) => {
 
   const { form, use } = useForm({
     defaultValues: {
-      fName: "",
-      lName: "",
+      f_name: "",
+      l_name: "",
       age: "",
       email: "",
       phone: "",
@@ -35,19 +35,19 @@ const AddNewPerson = ({ addPerson }) => {
         <form ref={form} noValidate>
           <InputField
             type="text"
-            name="fName"
-            id="fName"
+            name="f_name"
+            id="f_name"
             label="First Name"
             required
-            error={errors.fName}
+            error={errors.f_name}
           />
           <InputField
             type="text"
-            name="lName"
-            id="lName"
+            name="l_name"
+            id="l_name"
             label="Last Name"
             required
-            error={errors.lName}
+            error={errors.l_name}
           />
           <InputField
             type="text"

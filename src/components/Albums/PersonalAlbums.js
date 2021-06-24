@@ -1,6 +1,6 @@
 import React from "react";
-import PhotoCard from "../Photos/PhotoCard";
-import AddPhoto from "../Photos/AddPhoto";
+import PhotoCard from "../photos/PhotoCard";
+import AddPhoto from "../photos/AddPhoto";
 import { connect } from "react-redux";
 
 const PersonalAlbums = ({ personId, activePerson, albums, photos }) => {

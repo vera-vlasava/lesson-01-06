@@ -59,11 +59,11 @@ const PersonProfile = ({
         <img
           src={person.avatar}
           className="card-img-top"
-          alt="{person.fName} {person.lName}"
+          alt="{person.f_name} {person.l_name}"
         />
         <div className="card-body">
           <h3 className="card-title">
-            {person.fName} {person.lName}
+            {person.f_name} {person.l_name}
           </h3>
           <div className="card-text">
             <p>{person.age}</p>

@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import PhotoCard from "../Photos/PhotoCard";
+import PhotoCard from "../photos/PhotoCard";
 
 const Album = () => {
   const { id } = useParams();
@@ -30,7 +30,7 @@ const Album = () => {
       <div className="container">
         <h1>{data.album.title}</h1>
         <h2>
-          by {data.person.lName} {data.person.fName}
+          by {data.person.l_name} {data.person.f_name}
         </h2>
         <div className="row">
           {data.albumPhotos.map((photo) => (

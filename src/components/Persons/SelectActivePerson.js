@@ -26,7 +26,7 @@ const SelectActivePerson = ({
       <option value="-1">Choose User</option>
       {persons.map((p) => (
         <option key={p.id} value={p.id}>
-          {p.fName} {p.lName}
+          {p.f_name} {p.l_name}
         </option>
       ))}
     </select>
