@@ -9,8 +9,8 @@ import InputField from "../FormComponents/InputField";
 const SignIn = ({ signin }) => {
   let history = useHistory();
 
-  const submitHandle = (values) => {
-    signin(values);
+  const submitHandle = async(values) => {
+    await signin(values);
     history.push("/persons");
   };
 

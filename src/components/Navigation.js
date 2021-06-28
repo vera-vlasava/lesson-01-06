@@ -1,13 +1,18 @@
 import React from "react";
 import {NavLink, useHistory} from "react-router-dom";
-import {connect} from "react-redux";
+import {connect, useSelector} from "react-redux";
 import {doSignOut} from "../store/actions/act_persons"
 
-const Navigation = ({isAuth, signOut}) => {
+const Navigation = ({signOut}) => {
+
+    const isAuth = useSelector(state => {
+        return state.persons.isAuth 
+    })
 
 let history = useHistory()
 
     const renderAuth = () => {
+        console.log(isAuth)
         if (!isAuth) {
             return (
                 <>
@@ -22,9 +27,9 @@ let history = useHistory()
         } else {
             return (
                 <li className="nav-item">
-                    <a href="/signout" className="nav-link" onClick={(event) => {
+                    <a href="/signout" className="nav-link" onClick={async (event) => {
                         event.preventDefault()
-                        signOut()
+                        await signOut()
                         history.push("/")
                     }
                     }>Sign out</a>
@@ -63,7 +68,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        signOut: () => dispatch(doSignOut)
+        signOut: () => dispatch(doSignOut())
     }
 }
 

@@ -1,7 +1,7 @@
 const InitialState = {
   persons: {
     list: [],
-    isAuth: false,
+    isAuth: localStorage.token ? true : false,
     activePerson: null,
     editMode: false,
     personById: {},
