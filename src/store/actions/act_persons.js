@@ -58,7 +58,9 @@ export const doSignIn = (person) => {
       const json = await response.json();
       await localStorage.setItem('token', json.accessToken)
       await localStorage.setItem('userId', json.id)
-      await changeAuth(true)
+      console.log(json)
+
+      await dispatch(changeAuth(true))
     } catch (err) {
       console.log(err.message);
     }
@@ -66,11 +68,12 @@ export const doSignIn = (person) => {
 }
 
 export const doSignOut = () => {
-  return () => {
+  return async (dispatch) => {
     try {
-      localStorage.removeItem("token")
-      localStorage.removeItem("userId")
-      changeAuth(false)
+      await localStorage.removeItem("token")
+      await localStorage.removeItem("userId")
+      console.log("signout")
+      await dispatch(changeAuth(false))
     } catch (err) {
       console.log(err.message);
     }
