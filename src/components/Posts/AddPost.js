@@ -59,7 +59,7 @@ const AddPost = ({ activePerson, addLocalPost, setAddPostMode }) => {
 
 const mapStateToProps = (state) => {
   return {
-    activePerson: state.persons.activePerson,
+    // activePerson: state.persons.activePerson,
   };
 };
 
