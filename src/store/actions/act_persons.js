@@ -114,8 +114,21 @@ export const deletePerson = (personId) => {
 export const editPerson = (person) => {
   return async (dispatch) => {
     try {
-      await editPersonOnServer(person);
-      await dispatch(editPersonInState(person));
+      const response = await fetch(`${URL}/users/${person.id}`, {
+        method: "PUT",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+          "x-access-token": localStorage.token
+        },
+        body: JSON.stringify(person)
+      });
+      if (response.status !== 200) {
+        return 
+      }
+      const json = await response.json();
+      // await editPersonOnServer(person);
+      await dispatch(editPersonInState(json));
     } catch (err) {
       console.log(err.message);
     }
@@ -123,19 +136,27 @@ export const editPerson = (person) => {
 };
 
 export const setPersonById = (personId) => {
-  return (dispatch) => {
+  return async(dispatch) => {
     try {
-      dispatch(setPersonByIdInState(personId));
+      const response = await fetch(`${URL}/users/${personId}`, {
+        method: "GET",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+      const json = await response.json();
+      await dispatch(setPersonByIdInState(json));
     } catch (err) {
       console.log(err.message);
     }
   };
 };
 
-const setPersonByIdInState = (personId) => {
+const setPersonByIdInState = (person) => {
   return {
     type: SET_PERSON_BY_ID,
-    payload: personId,
+    payload: person,
   };
 };
 

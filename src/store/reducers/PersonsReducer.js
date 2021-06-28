@@ -55,11 +55,11 @@ export const PersonsReducer = (state = {}, action) => {
       };
 
     case SET_PERSON_BY_ID:
-      idx = state.list.findIndex((p) => p.id === action.payload);
-      if (idx === -1) return { ...state, personById: {} };
+      // idx = state.list.findIndex((p) => p.id === action.payload);
+      // if (idx === -1) return { ...state, personById: {} };
       return {
         ...state,
-        personById: state.list[idx],
+        personById: action.payload,
       };
 
     case CHANGE_EDIT_MODE:

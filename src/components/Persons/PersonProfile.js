@@ -17,7 +17,7 @@ import {
 } from "../../store/typesList";
 
 const PersonProfile = ({
-  activePerson,
+  // activePerson,
   setLocalPerson,
   setEditMode,
   editMode,
@@ -28,6 +28,7 @@ const PersonProfile = ({
   addAlbumMode
 }) => {
   const { id } = useParams();
+  const activePerson = +localStorage.getItem("userId")
 
   useEffect(() => {
     setLocalPerson(+id);
@@ -117,11 +118,11 @@ const PersonProfile = ({
 
   const renderPersonInfo = () => {
     if (addAlbumMode) {
-      return <AddAlbum />;
+      return <AddAlbum activePerson = {activePerson}/>;
     }
 
     if (addPostMode) {
-      return <AddPost />;
+      return <AddPost activePerson = {activePerson}/>;
     }
 
     return (
@@ -144,7 +145,7 @@ const PersonProfile = ({
 
 const mapStateToProps = (state) => {
   return {
-    activePerson: state.persons.activePerson,
+    // activePerson: state.persons.activePerson,
     editMode: state.persons.editMode,
     person: state.persons.personById,
     addPostMode: state.posts.addPostMode,

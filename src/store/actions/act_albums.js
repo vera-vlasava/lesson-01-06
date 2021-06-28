@@ -1,22 +1,41 @@
 import albumsInitial, { setAlbumsToStorage } from "../../data/albums";
 import { FETCH_ALBUMS, ADD_ALBUM} from "../typesList";
+import { URL } from "../utilites";
 
 export const getAlbums = () => {
     return async (dispatch) => {
       try {
-        const obj = getObject();
-        await dispatch(fetchAlbums(obj));
+        const response = await fetch(`${URL}/albums`, {
+          method: "GET",
+          mode: "cors",
+          headers: {
+            "Content-Type": "application/json"
+          }
+        });
+        const json = await response.json();
+        await dispatch(fetchAlbums({list: json}));
       } catch (err) {
         console.log(err.message);
       }
     };
   };
   
-  export const addAlbum = (post) => {
+  export const addAlbum = (album) => {
     return async (dispatch) => {
       try {
-        const newAlbum = await addAlbumInServer(post);
-        await dispatch(addAlbumInState(newAlbum));
+        const response = await fetch(`${URL}/albums`, {
+          method: "POST",
+          mode: "cors",
+          headers: {
+            "Content-Type": "application/json",
+            "x-access-token": localStorage.token
+          },
+          body: JSON.stringify(album)
+
+
+        });
+        const json = await response.json();
+        await dispatch(addAlbumInState(json));
       } catch (err) {
         console.log(err.message);
       }
