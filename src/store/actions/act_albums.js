@@ -1,6 +1,31 @@
 import albumsInitial, { setAlbumsToStorage } from "../../data/albums";
-import { FETCH_ALBUMS, ADD_ALBUM} from "../typesList";
+import { FETCH_ALBUMS, ADD_ALBUM, SET_ALBUM_BY_ID } from "../typesList";
 import { URL } from "../utilites";
+
+export const setAlbumById = (albumId) => {
+  return async(dispatch) => {
+    try {
+      const response = await fetch(`${URL}/albums/${albumId}`, {
+        method: "GET",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+      const json = await response.json();
+      await dispatch(setAlbumByIdInState(json));
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+};
+
+const setAlbumByIdInState = (album) => {
+  return {
+    type: SET_ALBUM_BY_ID,
+    payload: album,
+  };
+};
 
 export const getAlbums = () => {
     return async (dispatch) => {

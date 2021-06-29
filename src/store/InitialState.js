@@ -15,6 +15,7 @@ const InitialState = {
   albums: {
     list: [],
     addAlbumMode: false,
+    albumById: {},
   },
 
   photos: {

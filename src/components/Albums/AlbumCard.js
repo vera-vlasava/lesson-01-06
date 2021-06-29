@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 const AlbumCard = ({ album, photo }) => {
   const person = useSelector((state) => {
-    const idx = state.persons.list.findIndex((p) => p.id === album.personId);
+    const idx = state.persons.list.findIndex((p) => p.id === album.person_id);
     if (idx === -1) {
       return {
         f_name: "No",

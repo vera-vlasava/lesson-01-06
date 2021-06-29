@@ -13,15 +13,15 @@ const PersonalAlbums = ({ personId, albums, photos }) => {
         <div className="row">{renderPhotosByAlbum(a.id)}</div>
         <div>
           {activePerson === personId ? (
-            <AddPhoto albumId={a.id} />
+            <AddPhoto album_id={a.id} />
           ) : null}
         </div>
       </div>
     ));
   };
 
-  const renderPhotosByAlbum = (albumId) => {
-    const albumPhotos = photos.filter((photo) => photo.album_id === albumId);
+  const renderPhotosByAlbum = (album_id) => {
+    const albumPhotos = photos.filter((photo) => photo.album_id === album_id);
     return albumPhotos.map((photo) => (
       <PhotoCard key={photo.id} photo={photo} />
     ));

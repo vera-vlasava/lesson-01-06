@@ -1,11 +1,19 @@
 import postsInitial, { setPostsToStorage } from "../../data/posts";
 import { FETCH_POSTS, ADD_POST} from "../typesList";
+import { URL } from "../utilites";
 
 export const getPosts = () => {
   return async (dispatch) => {
     try {
-      const obj = getObject();
-      await dispatch(fetchPosts(obj));
+      const response = await fetch(`${URL}/posts`, {
+        method: "GET",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+      const json = await response.json();
+      await dispatch(fetchPosts({list: json}));
     } catch (err) {
       console.log(err.message);
     }
@@ -15,8 +23,22 @@ export const getPosts = () => {
 export const addPost = (post) => {
   return async (dispatch) => {
     try {
-      const newPost = await addPostInServer(post);
-      await dispatch(addPostInState(newPost));
+      const response = await fetch(`${URL}/posts`, {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+          "x-access-token": localStorage.token
+        },
+        body: JSON.stringify(post)
+
+
+      });
+      if (response.status !== 200) {
+        return 
+      }
+      const data = await response.json();
+      await dispatch(addPostInState(data));
     } catch (err) {
       console.log(err.message);
     }

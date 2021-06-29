@@ -2,7 +2,7 @@ import {connect} from "react-redux"
 
 const PersonalBlog = ({ posts, personId }) => {
 
-  const personalPosts = posts.filter((p) => p.personId === personId);
+  const personalPosts = posts.filter((p) => p.person_id === personId);
   const renderBlog = () => {
     if (!personalPosts.length) {
       return <h3>Ooops...</h3>;
