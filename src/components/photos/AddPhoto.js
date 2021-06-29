@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { addPhoto } from "../../store/actions/act_photos";
 
-const AddPhoto = ({ albumId, addLocalPhoto }) => {
+const AddPhoto = ({ album_id, addLocalPhoto }) => {
   const [photo, setPhoto] = useState({
-    albumId,
+    album_id,
     title: "",
     src: "",
   });
@@ -17,7 +17,7 @@ const AddPhoto = ({ albumId, addLocalPhoto }) => {
     event.preventDefault();
     addLocalPhoto(photo);
     setPhoto({
-      albumId,
+      album_id,
       title: "",
       src: "",
     });

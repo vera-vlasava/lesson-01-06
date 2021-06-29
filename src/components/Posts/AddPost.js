@@ -7,7 +7,7 @@ import { addPost } from "../../store/actions/act_posts";
 
 const AddPost = ({ activePerson, addLocalPost, setAddPostMode }) => {
   const [formData, setFormData] = useState({
-    personId: activePerson,
+    person_id: activePerson,
     title: "",
     short: "",
     body: "",

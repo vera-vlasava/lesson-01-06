@@ -10,6 +10,7 @@ export const CHANGE_AUTH = "CHANGE_AUTH"
 export const FETCH_ALBUMS = "FETCH_ALBUMS"
 export const ADD_ALBUM = "ADD_ALBUM"
 export const CHANGE_ADD_ALBUM = "CHANGE_ADD_ALBUM"
+export const SET_ALBUM_BY_ID= "SET_ALBUM_BY_ID"
 
 export const FETCH_POSTS = "FETCH_POSTS"
 export const ADD_POST = "ADD_POST"

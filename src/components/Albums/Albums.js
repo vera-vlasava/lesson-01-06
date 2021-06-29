@@ -1,8 +1,15 @@
-import React from "react";
-import { connect } from "react-redux";
+import React, {useEffect} from "react";
+import { connect, useDispatch } from "react-redux";
+import { getAlbums } from "../../store/actions/act_albums";
 import AlbumCard from "./AlbumCard";
 
 const Albums = ({albums, photos}) => {
+  const dispatch = useDispatch()
+  useEffect(
+    () => {
+      dispatch(getAlbums())
+    }, []
+  ) 
   const renderAlbums = () => {
     if (!albums.length) {
       return <h1>No albums</h1>;
@@ -10,7 +17,7 @@ const Albums = ({albums, photos}) => {
     return (
       <div className="row">
         {albums.map((album) => {
-          const albumPhotos = photos.filter((p) => p.albumId === album.id);
+          const albumPhotos = photos.filter((p) => p.album_id === album.id);
           if (albumPhotos.length === 0) return null;
           
           return (

@@ -28,7 +28,7 @@ const PersonProfile = ({
   addAlbumMode
 }) => {
   const { id } = useParams();
-  const activePerson = +localStorage.getItem("userId")
+  const activePerson = +localStorage.userId
 
   useEffect(() => {
     setLocalPerson(+id);
