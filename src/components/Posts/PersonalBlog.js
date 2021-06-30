@@ -1,8 +1,7 @@
 import {connect} from "react-redux"
 
-const PersonalBlog = ({ posts, personId }) => {
+const PersonalBlog = ({ personalPosts }) => {
 
-  const personalPosts = posts.filter((p) => p.personId === personId);
   const renderBlog = () => {
     if (!personalPosts.length) {
       return <h3>Ooops...</h3>;
@@ -21,7 +20,7 @@ const PersonalBlog = ({ posts, personId }) => {
 
 const mapStateToProps = state => {
   return {
-    posts: state.posts.list
+    personalPosts: state.posts.list
   }
 }
 

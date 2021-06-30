@@ -2,22 +2,22 @@ import React, { useEffect } from "react";
 
 import { ADD_LIKE_TO_PHOTO, ADD_DISLIKE_TO_PHOTO } from "../../store/typesList";
 import { connect } from "react-redux";
-import { editPhoto } from "../../store/actions/act_photos";
+import { addDislikeToPhoto, addLikeToPhoto } from "../../store/actions/act_photos";
 
-const AddReaction = ({ photo, addLike, addDislike, setEditedPhoto }) => {
+const AddReaction = ({ photo, addLike, addDislike, }) => {
   useEffect(() => {
     console.log(photo);
   }, [photo]);
   const addNewLike = (event) => {
     event.preventDefault();
     addLike(photo.id);
-    setEditedPhoto(photo.id);
+    
   };
 
   const addNewDislike = (event) => {
     event.preventDefault();
     addDislike(photo.id);
-    setEditedPhoto(photo.id);
+    
   };
 
   return (
@@ -32,9 +32,9 @@ const AddReaction = ({ photo, addLike, addDislike, setEditedPhoto }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addLike: (id) => dispatch({ type: ADD_LIKE_TO_PHOTO, payload: id }),
-    addDislike: (id) => dispatch({ type: ADD_DISLIKE_TO_PHOTO, payload: id }),
-    setEditedPhoto: (id) => dispatch(editPhoto(id)),
+    addLike: (id) => dispatch(addLikeToPhoto(id)),
+    addDislike: (id) => dispatch(addDislikeToPhoto(id)),
+   
   };
 };
 

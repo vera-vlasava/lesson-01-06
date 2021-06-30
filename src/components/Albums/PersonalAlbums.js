@@ -1,26 +1,27 @@
 import React from "react";
-import PhotoCard from "../Photos/PhotoCard";
-import AddPhoto from "../Photos/AddPhoto";
+import PhotoCard from "../photos/PhotoCard";
+import AddPhoto from "../photos/AddPhoto";
 import { connect } from "react-redux";
 
-const PersonalAlbums = ({ personId, activePerson, albums, photos }) => {
+const PersonalAlbums = ({ personId, albums, photos }) => {
+  const activePerson = +localStorage.userId
   const renderAlbum = () => {
-    const personalList = albums.filter((a) => a.personId === personId);
+    const personalList = albums.filter((a) => a.person_id === personId);
     return personalList.map((a) => (
       <div key={a.id}>
         <h3>{a.title}</h3>
         <div className="row">{renderPhotosByAlbum(a.id)}</div>
         <div>
           {activePerson === personId ? (
-            <AddPhoto albumId={a.id} />
+            <AddPhoto album_id={a.id} />
           ) : null}
         </div>
       </div>
     ));
   };
 
-  const renderPhotosByAlbum = (albumId) => {
-    const albumPhotos = photos.filter((photo) => photo.albumId === albumId);
+  const renderPhotosByAlbum = (album_id) => {
+    const albumPhotos = photos.filter((photo) => photo.album_id === album_id);
     return albumPhotos.map((photo) => (
       <PhotoCard key={photo.id} photo={photo} />
     ));
@@ -31,7 +32,7 @@ const PersonalAlbums = ({ personId, activePerson, albums, photos }) => {
 
 const mapStateToProps = (state) => {
   return {
-    activePerson: state.persons.activePerson,
+   
     albums: state.albums.list,
     photos: state.photos.list,
   };

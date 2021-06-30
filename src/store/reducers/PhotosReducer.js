@@ -4,6 +4,7 @@ import {
   ADD_LIKE_TO_PHOTO,
   ADD_DISLIKE_TO_PHOTO,
   EDIT_PHOTO,
+  
 } from "../typesList";
 
 let idx, _arr;

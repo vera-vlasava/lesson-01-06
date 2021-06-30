@@ -1,18 +1,26 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { useHistory } from "react-router-dom";
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {setPersonById} from "../../store/actions/act_persons";
 
 const AlbumCard = ({ album, photo }) => {
-  const person = useSelector((state) => {
-    const idx = state.persons.list.findIndex((p) => p.id === album.personId);
-    if (idx === -1) {
-      return {
-        fName: "No",
-        lName: "Name",
-      };
-    }
-    return state.persons.list[idx];
-  });
+
+  // const dispatch = useDispatch();
+  // useEffect (
+  //     () => {
+  //         dispatch(setPersonById(album.person_id))
+  //     }, [])
+  //
+  // const person = useSelector((state) => {
+  //   const idx = state.persons.list.findIndex((p) => p.id === album.person_id);
+  //   if (idx === -1) {
+  //     return {
+  //       f_name: "No",
+  //       l_name: "Name",
+  //     };
+  //   }
+  //   return state.persons.list[idx];
+  // });
 
   let history = useHistory();
 
@@ -28,7 +36,7 @@ const AlbumCard = ({ album, photo }) => {
         <div className="card-body">
           <h3 className="card-title">{album.title}</h3>
           <p className="card-text">
-            {person.lName} {person.fName[0].toUpperCase()}.
+            { album.person ? `${album.person.l_name} ${album.person.f_name[0].toUpperCase()}` : "No Name" }
           </p>
         </div>
       </div>

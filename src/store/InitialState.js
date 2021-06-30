@@ -1,19 +1,22 @@
 const InitialState = {
   persons: {
     list: [],
+    isAuth: localStorage.token ? true : false,
     activePerson: null,
     editMode: false,
-    personById: {},
+    personById: null,
   },
 
   posts: {
     list: [],
     addPostMode: false,
+    postById: null,
   },
 
   albums: {
     list: [],
     addAlbumMode: false,
+    albumById: null,
   },
 
   photos: {

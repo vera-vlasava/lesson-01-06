@@ -11,7 +11,7 @@ const AddNewPerson = ({ addPerson }) => {
 
   const submitHandle = (values) => {
     addPerson(values);
-    history.push("/persons");
+    history.push("/signin");
   };
 
   const { form, use } = useForm({
@@ -20,7 +20,7 @@ const AddNewPerson = ({ addPerson }) => {
       l_name: "",
       age: "",
       email: "",
-      password:"",
+      password: "",
       phone: "",
       avatar: "",
     },
@@ -47,6 +47,7 @@ const AddNewPerson = ({ addPerson }) => {
             name="l_name"
             id="l_name"
             label="Last Name"
+            required
             error={errors.l_name}
           />
           <InputField
@@ -54,6 +55,7 @@ const AddNewPerson = ({ addPerson }) => {
             name="age"
             id="age"
             label="Age"
+            required
             error={errors.age}
           />
           <InputField
@@ -64,19 +66,20 @@ const AddNewPerson = ({ addPerson }) => {
             required
             error={errors.email}
           />
-           <InputField
-            type="password"
-            name="password"
-            id="password"
-            label="Password"
-            required
-            error={errors.password}
+          <InputField
+              type="password"
+              name="password"
+              id="password"
+              label="Password"
+              required
+              error={errors.password}
           />
           <InputField
             type="text"
             name="phone"
             id="phone"
             label="Phone"
+            required
             error={errors.phone}
           />
           <InputField
@@ -84,6 +87,7 @@ const AddNewPerson = ({ addPerson }) => {
             name="avatar"
             id="avatar"
             label="Avatar"
+            required
             error={errors.avatar}
           />
 

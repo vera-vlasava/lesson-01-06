@@ -4,9 +4,9 @@ import { CHANGE_ADD_ALBUM } from "../../store/typesList";
 
 import { addAlbum } from "../../store/actions/act_albums";
 
-const AddAlbum = ({ addLocalAlbum, activePerson, setAddAlbumMode }) => {
+const AddAlbum = ({ addLocalAlbum, setAddAlbumMode }) => {
   const [formData, setFormData] = useState({
-    personId: activePerson,
+    person_id: +localStorage.userId,
     title: "",
   });
 
@@ -42,7 +42,7 @@ const AddAlbum = ({ addLocalAlbum, activePerson, setAddAlbumMode }) => {
 
 const mapStateToProps = (state) => {
   return {
-    activePerson: state.persons.activePerson,
+    // activePerson: state.persons.activePerson,
   };
 };
 

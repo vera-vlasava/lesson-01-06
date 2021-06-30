@@ -1,4 +1,4 @@
-1. Person = {id, fName, lName, age, email, phone, avatar}
+1. Person = {id, f_name, l_name, age, email, phone, avatar}
 2. Album = {id, personId, title}
 3. Photo = {id, albumId, title, src, like, dislike}
 4. Blog = {id, personId, title, short, body, datetime}

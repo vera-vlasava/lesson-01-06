@@ -23,8 +23,8 @@ const EditPersonForm = ({ person, editLocalPerson, setEditMode }) => {
         <input
           type="text"
           className="form-control"
-          value={formData.fName}
-          name="fName"
+          value={formData.f_name}
+          name="f_name"
           onChange={changeFieldHandle}
         />
       </div>
@@ -33,8 +33,8 @@ const EditPersonForm = ({ person, editLocalPerson, setEditMode }) => {
         <input
           type="text"
           className="form-control"
-          value={formData.lName}
-          name="lName"
+          value={formData.l_name}
+          name="l_name"
           onChange={changeFieldHandle}
         />
       </div>

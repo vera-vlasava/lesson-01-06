@@ -6,7 +6,7 @@ import PersonalAlbums from "../Albums/PersonalAlbums";
 import AddPost from "../Posts/AddPost";
 import PersonalBlog from "../Posts/PersonalBlog";
 
-import { connect } from "react-redux";
+import {connect, useDispatch} from "react-redux";
 
 import { setPersonById } from "../../store/actions/act_persons";
 import EditPersonForm from "./EditPersonForm";
@@ -15,10 +15,12 @@ import {
   CHANGE_ADD_POST,
   CHANGE_ADD_ALBUM,
 } from "../../store/typesList";
+import {setAlbumsByPersonId} from "../../store/actions/act_albums";
+import {setPostsByPersonId} from "../../store/actions/act_posts";
 
 const PersonProfile = ({
-  activePerson,
-  setLocalPerson,
+  // activePerson,
+  // setLocalPerson,
   setEditMode,
   editMode,
   person,
@@ -28,13 +30,18 @@ const PersonProfile = ({
   addAlbumMode
 }) => {
   const { id } = useParams();
+  const activePerson = +localStorage.userId
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setLocalPerson(+id);
+    dispatch(setPersonById(+id));
+    dispatch(setAlbumsByPersonId(+id));
+    dispatch(setPostsByPersonId(+id));
   }, []);
 
   useEffect(() => {
-    setLocalPerson(+id);
+    dispatch(setPersonById(+id));
   }, [editMode]);
 
   const renderProfile = () => {
@@ -59,11 +66,11 @@ const PersonProfile = ({
         <img
           src={person.avatar}
           className="card-img-top"
-          alt="{person.fName} {person.lName}"
+          alt="{person.f_name} {person.l_name}"
         />
         <div className="card-body">
           <h3 className="card-title">
-            {person.fName} {person.lName}
+            {person.f_name} {person.l_name}
           </h3>
           <div className="card-text">
             <p>{person.age}</p>
@@ -117,11 +124,11 @@ const PersonProfile = ({
 
   const renderPersonInfo = () => {
     if (addAlbumMode) {
-      return <AddAlbum />;
+      return <AddAlbum activePerson = {activePerson}/>;
     }
 
     if (addPostMode) {
-      return <AddPost />;
+      return <AddPost activePerson = {activePerson}/>;
     }
 
     return (
@@ -144,7 +151,7 @@ const PersonProfile = ({
 
 const mapStateToProps = (state) => {
   return {
-    activePerson: state.persons.activePerson,
+    // activePerson: state.persons.activePerson,
     editMode: state.persons.editMode,
     person: state.persons.personById,
     addPostMode: state.posts.addPostMode,
@@ -154,7 +161,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setLocalPerson: (id) => dispatch(setPersonById(id)),
+    // setLocalPerson: (id) => dispatch(setPersonById(id)),
     setEditMode: () => dispatch({ type: CHANGE_EDIT_MODE }),
     setAddPostMode: () => dispatch({ type: CHANGE_ADD_POST }),
     setAddAlbumMode: () => dispatch({ type: CHANGE_ADD_ALBUM }),
