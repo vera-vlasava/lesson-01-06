@@ -53,6 +53,9 @@ let history = useHistory()
                     <li className="nav-item">
                         <NavLink to="/albums">Albums</NavLink>
                     </li>
+                    <li className="nav-item">
+                        <NavLink to="/posts">Posts</NavLink>
+                    </li>
                     {renderAuth()}
                 </ul>
             </div>

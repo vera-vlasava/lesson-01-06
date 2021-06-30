@@ -1,15 +1,18 @@
 import React, {useEffect} from "react";
 import { connect, useDispatch } from "react-redux";
 import { getAlbums } from "../../store/actions/act_albums";
+import {getPhotos} from "../../store/actions/act_photos";
 import AlbumCard from "./AlbumCard";
+
 
 const Albums = ({albums, photos}) => {
   const dispatch = useDispatch()
   useEffect(
     () => {
       dispatch(getAlbums())
-    }, []
-  ) 
+      dispatch(getPhotos())
+    }, [])
+
   const renderAlbums = () => {
     if (!albums.length) {
       return <h1>No albums</h1>;

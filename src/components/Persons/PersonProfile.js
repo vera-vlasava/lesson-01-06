@@ -6,7 +6,7 @@ import PersonalAlbums from "../Albums/PersonalAlbums";
 import AddPost from "../Posts/AddPost";
 import PersonalBlog from "../Posts/PersonalBlog";
 
-import { connect } from "react-redux";
+import {connect, useDispatch} from "react-redux";
 
 import { setPersonById } from "../../store/actions/act_persons";
 import EditPersonForm from "./EditPersonForm";
@@ -15,10 +15,12 @@ import {
   CHANGE_ADD_POST,
   CHANGE_ADD_ALBUM,
 } from "../../store/typesList";
+import {setAlbumsByPersonId} from "../../store/actions/act_albums";
+import {setPostsByPersonId} from "../../store/actions/act_posts";
 
 const PersonProfile = ({
   // activePerson,
-  setLocalPerson,
+  // setLocalPerson,
   setEditMode,
   editMode,
   person,
@@ -30,12 +32,16 @@ const PersonProfile = ({
   const { id } = useParams();
   const activePerson = +localStorage.userId
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    setLocalPerson(+id);
+    dispatch(setPersonById(+id));
+    dispatch(setAlbumsByPersonId(+id));
+    dispatch(setPostsByPersonId(+id));
   }, []);
 
   useEffect(() => {
-    setLocalPerson(+id);
+    dispatch(setPersonById(+id));
   }, [editMode]);
 
   const renderProfile = () => {
@@ -155,7 +161,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setLocalPerson: (id) => dispatch(setPersonById(id)),
+    // setLocalPerson: (id) => dispatch(setPersonById(id)),
     setEditMode: () => dispatch({ type: CHANGE_EDIT_MODE }),
     setAddPostMode: () => dispatch({ type: CHANGE_ADD_POST }),
     setAddAlbumMode: () => dispatch({ type: CHANGE_ADD_ALBUM }),

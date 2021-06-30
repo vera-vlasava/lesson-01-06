@@ -7,6 +7,8 @@ import PersonProfile from "../components/Persons/PersonProfile";
 import Albums from "../components/Albums/Albums";
 import Album from "../components/Albums/Album";
 import SignIn from "../components/Auth/SignIn";
+import Posts from "../components/Posts/Posts";
+import Post from "../components/Posts/Post";
 
 const Pages = () => {
     return(
@@ -31,6 +33,12 @@ const Pages = () => {
             </Route>
             <Route path="/albums/:id">
                 <Album />
+            </Route>
+            <Route exact path="/posts">
+                <Posts />
+            </Route>
+            <Route exact path="/posts/:id">
+                <Post />
             </Route>
         </Switch>
     )
